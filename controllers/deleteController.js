@@ -1,0 +1,47 @@
+const { Storage } = require('@google-cloud/storage');
+const path = require('path');
+const db = require('../config/db');
+require('dotenv').config();
+
+const storage = new Storage({
+    keyFilename: path.join(__dirname, '../credentials.json'),
+});
+
+const bucketName = process.env.BUCKET_NAME;
+
+exports.deleteProfilePicture = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        const [rows] = await db.execute('SELECT profilePic FROM users WHERE id = ?', [userId]);
+        if (rows.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const photoUrl = rows[0].profilePic;
+        if (!photoUrl) {
+            return res.status(400).send({ message: 'No profile picture to delete' });
+        }
+
+        const urlParts = photoUrl.split('/');
+        const folderName = urlParts[urlParts.length - 2];
+        const fileName = urlParts[urlParts.length - 1];
+
+        const bucket = storage.bucket(bucketName);
+        const file = bucket.file(`${folderName}/${fileName}`);
+        await file.delete();
+
+        await db.execute('UPDATE users SET profilePic = NULL WHERE id = ?', [userId]);
+
+        const [files] = await bucket.getFiles({ prefix: `${folderName}/` });
+        if (files.length === 0) {
+            await bucket.deleteFiles({ prefix: `${folderName}/` });
+            await bucket.deleteFiles({ prefix: `${folderName}` });
+        }
+
+        res.status(200).send({ message: 'Profile picture deleted successfully' });
+    } catch (err) {
+        console.error('Error during profile picture deletion:', err);
+        res.status(500).send({ message: 'Server error' });
+    }
+};
