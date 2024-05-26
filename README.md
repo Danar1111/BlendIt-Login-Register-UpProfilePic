@@ -80,7 +80,7 @@ need to create a `credentials.json` file to store the key from the service accou
         }
     }
     ```
-    -Response after upload profile picture
+    - Response after upload profile picture
     ```json
     {
         "error": false,
