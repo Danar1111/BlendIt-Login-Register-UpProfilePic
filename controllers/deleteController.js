@@ -15,12 +15,12 @@ exports.deleteProfilePicture = async (req, res) => {
 
         const [rows] = await db.execute('SELECT profilePic FROM users WHERE id = ?', [userId]);
         if (rows.length === 0) {
-            return res.status(404).send({ message: 'User not found' });
+            return res.status(404).send({ error: true, message: 'User not found' });
         }
 
         const photoUrl = rows[0].profilePic;
         if (!photoUrl) {
-            return res.status(400).send({ message: 'No profile picture to delete' });
+            return res.status(400).send({ error: true, message: 'No profile picture to delete' });
         }
 
         const urlParts = photoUrl.split('/');
@@ -39,9 +39,9 @@ exports.deleteProfilePicture = async (req, res) => {
             await bucket.deleteFiles({ prefix: `${folderName}` });
         }
 
-        res.status(200).send({ message: 'Profile picture deleted successfully' });
+        res.status(200).send({ error: false, message: 'Profile picture deleted successfully' });
     } catch (err) {
         console.error('Error during profile picture deletion:', err);
-        res.status(500).send({ message: 'Server error' });
+        res.status(500).send({ error: true, message: 'Server error' });
     }
 };

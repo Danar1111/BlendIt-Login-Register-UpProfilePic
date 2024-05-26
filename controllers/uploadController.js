@@ -12,7 +12,7 @@ const bucketName = process.env.BUCKET_NAME;
 exports.uploadProfilePicture = async (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).send({ message: 'No file uploaded' });
+            return res.status(400).send({ error: true, message: 'No file uploaded' });
         }
 
         const userId = req.user.id;
@@ -30,9 +30,9 @@ exports.uploadProfilePicture = async (req, res) => {
 
         await db.execute('UPDATE users SET profilePic = ? WHERE id = ?', [publicUrl, userId]);
 
-        res.status(200).send({ message: 'File uploaded successfully', photoUrl: publicUrl });
+        res.status(200).send({ error: false, message: 'File uploaded successfully', photoUrl: publicUrl });
     } catch (err) {
         console.error('Error during file upload:', err);
-        res.status(500).send({ message: 'Server error' });
+        res.status(500).send({ error: true, message: 'Server error' });
     }
 };
