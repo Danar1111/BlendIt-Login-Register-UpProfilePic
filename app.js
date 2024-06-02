@@ -5,6 +5,7 @@ const db = require('./config/db');
 const authMiddleware = require('./middlewares/authMiddleware');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
 
 app.use((req, res, next) => {
