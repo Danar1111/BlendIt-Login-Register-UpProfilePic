@@ -110,7 +110,7 @@ need to create a `credentials.json` file to store the key from the service accou
     }
     ```
 
-- Upload Profile Pic
+- Upload Profile Picture
     - URL
         - `/upload-profile-picture`
     - Method
