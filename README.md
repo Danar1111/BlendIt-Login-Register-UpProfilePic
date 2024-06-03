@@ -128,7 +128,7 @@ need to create a `credentials.json` file to store the key from the service accou
     }
     ```
 
-- Delete Profile Pic
+- Delete Profile Picture
     - URL
         - `/delete-profile-picture`
     - Method
