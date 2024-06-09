@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # Backend API for Register, Login, and Upload Profile Picture (BlendIt)
 API for logging in and registering and can upload a profile picture for application use. The backend uses node.js and also uses the Express framework, using several necessary packages such as :
 
@@ -39,6 +40,10 @@ API for logging in and registering and can upload a profile picture for applicat
 
 ## How to use
 need to create a `credentials.json` file to store the key from the service account for access to the storage bucket, then you can run the `npm install` command. for the `.env` file you can adjust it to the value used, it can be adjusted to the SQL in Google Cloud and the bucket name used.
+=======
+# Backend API for Register, Login, and Upload Profile Picture (BlendIt) CheckPoint 3
+There is a change to limit the number of photo files sent to 1mb and there is also a bug fix, previously if you already had a profile photo then when you changed the profile photo it would pile up and fill up cloud storage, with this fix the old file will be deleted and will be replaced with a new file, Likewise in the database URL.
+>>>>>>> Stashed changes
 
 ## Documentation
 - Register
@@ -143,6 +148,7 @@ need to create a `credentials.json` file to store the key from the service accou
         "error": false,
         "message": "Profile picture deleted successfully"
     }
+<<<<<<< Updated upstream
     ```
 
 ## Image
@@ -162,3 +168,6 @@ need to create a `credentials.json` file to store the key from the service accou
 ![img](images/g.png)
 
 # Thanks
+=======
+    ```
+>>>>>>> Stashed changes

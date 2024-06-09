@@ -16,7 +16,24 @@ exports.uploadProfilePicture = async (req, res) => {
         }
 
         const userId = req.user.id;
+
+        const [rows] = await db.execute('SELECT profilePic FROM users WHERE id = ?', [userId]);
+        const photoUrl = rows[0].profilePic;
+
         const bucket = storage.bucket(bucketName);
+
+        if (photoUrl){
+            const urlParts = photoUrl.split('/');
+            const folderName = urlParts[urlParts.length - 2];
+            const fileNameUrl = urlParts[urlParts.length - 1];
+
+            const fileDel = bucket.file(`${folderName}/${fileNameUrl}`);
+            await fileDel.delete();
+
+            await bucket.deleteFiles({ prefix: `${folderName}/` });
+            await db.execute('UPDATE users SET profilePic = NULL WHERE id = ?', [userId]);
+        };
+
         const fileName = `${userId}/profile_picture_${Date.now()}.jpg`;
         const file = bucket.file(fileName);
 
