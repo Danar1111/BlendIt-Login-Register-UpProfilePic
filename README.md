@@ -1,51 +1,11 @@
-<<<<<<< Updated upstream
-# Backend API for Register, Login, and Upload Profile Picture (BlendIt)
-API for logging in and registering and can upload a profile picture for application use. The backend uses node.js and also uses the Express framework, using several necessary packages such as :
-
-- "@google-cloud/storage"
-
-    This package allows your Node.js application to interact with Google Cloud Storage. You can use it to store and retrieve files, such as profile pictures uploaded by users.
-
-- "bcryptjs"
-
-    bcryptjs is a library for hashing passwords securely. When users register or log in, their passwords should be hashed before storing them in the database. bcryptjs provides a way to securely hash passwords and compare hashed passwords for authentication.
-
-- "dotenv"
-
-    dotenv is a zero-dependency module that loads environment variables from a .env file into process.env. This is useful for storing sensitive information like API keys or database credentials without hardcoding them into your code.
-
-- "express"
-
-    Express is a web application framework for Node.js. It simplifies the process of building web applications and APIs by providing a robust set of features for handling HTTP requests, routing, middleware, and more.
-
-- "express-validator"
-
-    express-validator is a middleware for Express that provides easy validation of user input. It helps sanitize and validate user data to prevent common security vulnerabilities such as SQL injection and cross-site scripting (XSS).
-
-- "jsonwebtoken"
-
-    jsonwebtoken is a package for generating and verifying JSON Web Tokens (JWT) in Node.js. JWTs are commonly used for authentication and authorization in web applications. You can use them to securely transmit information between parties.
-
-- "multer"
-
-    multer is a middleware for handling multipart/form-data, which is commonly used for uploading files in HTML forms. It allows you to parse and handle file uploads easily in Express applications.
-
-- "mysql2"
-
-    mysql2 is a fast MySQL driver for Node.js. It enables your application to interact with a MySQL database, allowing you to perform CRUD operations (Create, Read, Update, Delete) on user data, such as storing user profiles and credentials.
-
-- "nodemon"
-
-    nodemon is a utility that automatically restarts your Node.js application when file changes are detected. This is particularly useful during development, as it eliminates the need to manually stop and restart the server every time you make changes to your code.
-
-## How to use
-need to create a `credentials.json` file to store the key from the service account for access to the storage bucket, then you can run the `npm install` command. for the `.env` file you can adjust it to the value used, it can be adjusted to the SQL in Google Cloud and the bucket name used.
-=======
 # Backend API for Register, Login, and Upload Profile Picture (BlendIt) CheckPoint 3
 There is a change to limit the number of photo files sent to 1mb and there is also a bug fix, previously if you already had a profile photo then when you changed the profile photo it would pile up and fill up cloud storage, with this fix the old file will be deleted and will be replaced with a new file, Likewise in the database URL.
->>>>>>> Stashed changes
 
 ## Documentation
+
+### Endpoint
+https://vps.danar.site
+
 - Register
     - URL
         - `/register`
@@ -115,7 +75,7 @@ There is a change to limit the number of photo files sent to 1mb and there is al
     }
     ```
 
-- Upload Profile Picture
+- Upload Profile Pic
     - URL
         - `/upload-profile-picture`
     - Method
@@ -133,7 +93,7 @@ There is a change to limit the number of photo files sent to 1mb and there is al
     }
     ```
 
-- Delete Profile Picture
+- Delete Profile Pic
     - URL
         - `/delete-profile-picture`
     - Method
@@ -148,26 +108,4 @@ There is a change to limit the number of photo files sent to 1mb and there is al
         "error": false,
         "message": "Profile picture deleted successfully"
     }
-<<<<<<< Updated upstream
     ```
-
-## Image
-- register
-![img](images/a.png)
-- login
-![img](images/b.png)
-- login after upload profile pic
-![img](images/c.png)
-- logout
-![img](images/d.png)
-- Upload Profile Pic
-![img](images/e.png)
-- Delete Profile Pic
-![img](images/f.png)
-- Profile Pic Save in Cloud Storage
-![img](images/g.png)
-
-# Thanks
-=======
-    ```
->>>>>>> Stashed changes
